@@ -341,5 +341,5 @@ For support and questions:
 - Minified assets for faster loading
 
 ---
-
-Built with ❤️ by the SkillHub Team
+Video recording of the final output : 
+[skill_swap-recording.zip](https://github.com/user-attachments/files/21195806/skill_swap-recording.zip)
