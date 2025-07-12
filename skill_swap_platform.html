@@ -1,0 +1,1710 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SkillHub - Professional Skill Exchange Platform</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+        
+        :root {
+            --primary-blue: #0066cc;
+            --primary-blue-dark: #004d99;
+            --primary-blue-light: #3385d6;
+            --secondary-green: #00875a;
+            --secondary-green-light: #36b37e;
+            --success-green: #22c55e;
+            --warning-orange: #ff8b00;
+            --danger-red: #de350b;
+            --gray-50: #f8fafc;
+            --gray-100: #f1f5f9;
+            --gray-200: #e2e8f0;
+            --gray-300: #cbd5e1;
+            --gray-400: #94a3b8;
+            --gray-500: #64748b;
+            --gray-600: #475569;
+            --gray-700: #334155;
+            --gray-800: #1e293b;
+            --gray-900: #0f172a;
+            --white: #ffffff;
+            --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+            --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+            --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+            --border-radius: 8px;
+            --transition: all 0.2s ease-in-out;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background-color: var(--gray-50);
+            color: var(--gray-800);
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        /* Header */
+        .header {
+            background: var(--white);
+            border-bottom: 1px solid var(--gray-200);
+            box-shadow: var(--shadow-sm);
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+        }
+
+        .nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 16px 0;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            text-decoration: none;
+            color: var(--primary-blue);
+            font-size: 24px;
+            font-weight: 700;
+        }
+
+        .logo-icon {
+            width: 32px;
+            height: 32px;
+            background: var(--primary-blue);
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 16px;
+        }
+
+        .nav-menu {
+            display: flex;
+            list-style: none;
+            gap: 8px;
+            align-items: center;
+        }
+
+        .nav-link {
+            padding: 8px 16px;
+            text-decoration: none;
+            color: var(--gray-600);
+            font-weight: 500;
+            border-radius: var(--border-radius);
+            transition: var(--transition);
+        }
+
+        .nav-link:hover {
+            background: var(--gray-100);
+            color: var(--gray-800);
+        }
+
+        .nav-link.active {
+            background: var(--primary-blue);
+            color: white;
+        }
+
+        .user-menu {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .user-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: var(--primary-blue);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .user-avatar:hover {
+            background: var(--primary-blue-dark);
+        }
+
+        /* Main Content */
+        .main {
+            margin-top: 80px;
+            padding: 32px 0;
+        }
+
+        .page {
+            display: none;
+        }
+
+        .page.active {
+            display: block;
+        }
+
+        /* Cards */
+        .card {
+            background: var(--white);
+            border: 1px solid var(--gray-200);
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow-sm);
+            transition: var(--transition);
+        }
+
+        .card:hover {
+            box-shadow: var(--shadow-md);
+        }
+
+        .card-header {
+            padding: 24px 24px 0 24px;
+            border-bottom: 1px solid var(--gray-100);
+            margin-bottom: 24px;
+        }
+
+        .card-title {
+            font-size: 20px;
+            font-weight: 600;
+            color: var(--gray-800);
+            margin-bottom: 8px;
+        }
+
+        .card-subtitle {
+            color: var(--gray-500);
+            font-size: 14px;
+        }
+
+        .card-body {
+            padding: 24px;
+        }
+
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(135deg, var(--primary-blue) 0%, var(--primary-blue-dark) 100%);
+            color: white;
+            text-align: center;
+            padding: 80px 0;
+            margin-bottom: 32px;
+            border-radius: var(--border-radius);
+        }
+
+        .hero-title {
+            font-size: 48px;
+            font-weight: 800;
+            margin-bottom: 16px;
+            line-height: 1.1;
+        }
+
+        .hero-subtitle {
+            font-size: 20px;
+            margin-bottom: 32px;
+            opacity: 0.9;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .hero-cta {
+            background: white;
+            color: var(--primary-blue);
+            padding: 16px 32px;
+            border: none;
+            border-radius: var(--border-radius);
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .hero-cta:hover {
+            background: var(--gray-100);
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        /* Forms */
+        .form-group {
+            margin-bottom: 24px;
+        }
+
+        .form-label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+            color: var(--gray-700);
+            font-size: 14px;
+        }
+
+        .form-input {
+            width: 100%;
+            padding: 12px 16px;
+            border: 1px solid var(--gray-300);
+            border-radius: var(--border-radius);
+            font-size: 16px;
+            transition: var(--transition);
+            background: white;
+        }
+
+        .form-input:focus {
+            outline: none;
+            border-color: var(--primary-blue);
+            box-shadow: 0 0 0 3px rgba(0, 102, 204, 0.1);
+        }
+
+        .form-select {
+            appearance: none;
+            background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3e%3cpath stroke='%236b7280' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='M6 8l4 4 4-4'/%3e%3c/svg%3e");
+            background-position: right 12px center;
+            background-repeat: no-repeat;
+            background-size: 16px;
+            padding-right: 40px;
+        }
+
+        .form-textarea {
+            min-height: 100px;
+            resize: vertical;
+        }
+
+        /* Buttons */
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            padding: 12px 20px;
+            border: none;
+            border-radius: var(--border-radius);
+            font-size: 14px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: var(--transition);
+            text-decoration: none;
+            margin-right: 12px;
+            margin-bottom: 12px;
+        }
+
+        .btn-primary {
+            background: var(--primary-blue);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: var(--primary-blue-dark);
+            transform: translateY(-1px);
+            box-shadow: var(--shadow-md);
+        }
+
+        .btn-secondary {
+            background: var(--gray-100);
+            color: var(--gray-700);
+            border: 1px solid var(--gray-300);
+        }
+
+        .btn-secondary:hover {
+            background: var(--gray-200);
+        }
+
+        .btn-success {
+            background: var(--success-green);
+            color: white;
+        }
+
+        .btn-success:hover {
+            background: #16a34a;
+        }
+
+        .btn-danger {
+            background: var(--danger-red);
+            color: white;
+        }
+
+        .btn-danger:hover {
+            background: #b91c1c;
+        }
+
+        .btn-outline {
+            background: transparent;
+            color: var(--primary-blue);
+            border: 1px solid var(--primary-blue);
+        }
+
+        .btn-outline:hover {
+            background: var(--primary-blue);
+            color: white;
+        }
+
+        .btn-sm {
+            padding: 8px 16px;
+            font-size: 13px;
+        }
+
+        /* Skills */
+        .skills-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-top: 12px;
+        }
+
+        .skill-tag {
+            background: var(--primary-blue);
+            color: white;
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .skill-remove {
+            cursor: pointer;
+            font-size: 16px;
+            opacity: 0.7;
+            transition: var(--transition);
+        }
+
+        .skill-remove:hover {
+            opacity: 1;
+        }
+
+        .skill-item {
+            background: var(--gray-100);
+            color: var(--gray-700);
+            padding: 4px 8px;
+            border-radius: 12px;
+            font-size: 11px;
+            font-weight: 500;
+        }
+
+        /* Profile Grid */
+        .profiles-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 24px;
+            margin-top: 24px;
+        }
+
+        .profile-card {
+            background: var(--white);
+            border: 1px solid var(--gray-200);
+            border-radius: var(--border-radius);
+            padding: 24px;
+            transition: var(--transition);
+            cursor: pointer;
+        }
+
+        .profile-card:hover {
+            border-color: var(--primary-blue);
+            box-shadow: var(--shadow-md);
+            transform: translateY(-2px);
+        }
+
+        .profile-header {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            margin-bottom: 16px;
+        }
+
+        .profile-avatar {
+            width: 64px;
+            height: 64px;
+            border-radius: 50%;
+            background: var(--primary-blue);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 700;
+            font-size: 24px;
+        }
+
+        .profile-info h3 {
+            font-size: 18px;
+            font-weight: 600;
+            color: var(--gray-800);
+            margin-bottom: 4px;
+        }
+
+        .profile-info p {
+            color: var(--gray-500);
+            font-size: 14px;
+        }
+
+        .profile-rating {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-top: 8px;
+        }
+
+        .stars {
+            color: #fbbf24;
+            font-size: 14px;
+        }
+
+        .rating-text {
+            color: var(--gray-500);
+            font-size: 14px;
+        }
+
+        .skills-section {
+            margin-bottom: 16px;
+        }
+
+        .skills-title {
+            font-size: 12px;
+            font-weight: 600;
+            text-transform: uppercase;
+            color: var(--gray-500);
+            margin-bottom: 8px;
+            letter-spacing: 0.5px;
+        }
+
+        .skills-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+        }
+
+        /* Search */
+        .search-container {
+            position: relative;
+            margin-bottom: 24px;
+        }
+
+        .search-input {
+            width: 100%;
+            padding: 16px 16px 16px 48px;
+            border: 1px solid var(--gray-300);
+            border-radius: var(--border-radius);
+            font-size: 16px;
+            background: white;
+        }
+
+        .search-icon {
+            position: absolute;
+            left: 16px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--gray-400);
+            font-size: 20px;
+        }
+
+        /* Toggle Switch */
+        .toggle-container {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-top: 8px;
+        }
+
+        .toggle-switch {
+            position: relative;
+            width: 48px;
+            height: 24px;
+            background: var(--gray-300);
+            border-radius: 12px;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .toggle-switch.active {
+            background: var(--primary-blue);
+        }
+
+        .toggle-slider {
+            position: absolute;
+            top: 2px;
+            left: 2px;
+            width: 20px;
+            height: 20px;
+            background: white;
+            border-radius: 50%;
+            transition: var(--transition);
+        }
+
+        .toggle-switch.active .toggle-slider {
+            transform: translateX(24px);
+        }
+
+        .toggle-label {
+            font-size: 14px;
+            color: var(--gray-600);
+        }
+
+        /* Swap Requests */
+        .swap-request {
+            background: var(--white);
+            border: 1px solid var(--gray-200);
+            border-radius: var(--border-radius);
+            padding: 20px;
+            margin-bottom: 16px;
+            transition: var(--transition);
+        }
+
+        .swap-request:hover {
+            box-shadow: var(--shadow-md);
+        }
+
+        .swap-request.pending {
+            border-left: 4px solid var(--warning-orange);
+        }
+
+        .swap-request.accepted {
+            border-left: 4px solid var(--success-green);
+        }
+
+        .swap-request.rejected {
+            border-left: 4px solid var(--danger-red);
+        }
+
+        .swap-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 12px;
+        }
+
+        .swap-user {
+            font-weight: 600;
+            color: var(--gray-800);
+        }
+
+        .swap-status {
+            padding: 4px 12px;
+            border-radius: 12px;
+            font-size: 12px;
+            font-weight: 500;
+            text-transform: uppercase;
+        }
+
+        .swap-status.pending {
+            background: #fef3c7;
+            color: #92400e;
+        }
+
+        .swap-status.accepted {
+            background: #d1fae5;
+            color: #065f46;
+        }
+
+        .swap-status.rejected {
+            background: #fee2e2;
+            color: #991b1b;
+        }
+
+        .swap-skills {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 12px;
+        }
+
+        .swap-skill {
+            background: var(--gray-100);
+            padding: 6px 12px;
+            border-radius: 16px;
+            font-size: 13px;
+            font-weight: 500;
+        }
+
+        .swap-arrow {
+            color: var(--gray-400);
+            font-size: 16px;
+        }
+
+        .swap-message {
+            background: var(--gray-50);
+            padding: 12px;
+            border-radius: var(--border-radius);
+            margin-bottom: 16px;
+            font-style: italic;
+            color: var(--gray-600);
+            border-left: 3px solid var(--primary-blue);
+        }
+
+        /* Admin Dashboard */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 24px;
+            margin-bottom: 32px;
+        }
+
+        .stat-card {
+            background: var(--white);
+            border: 1px solid var(--gray-200);
+            border-radius: var(--border-radius);
+            padding: 24px;
+            text-align: center;
+            transition: var(--transition);
+        }
+
+        .stat-card:hover {
+            border-color: var(--primary-blue);
+            box-shadow: var(--shadow-md);
+        }
+
+        .stat-icon {
+            font-size: 32px;
+            margin-bottom: 12px;
+        }
+
+        .stat-number {
+            font-size: 32px;
+            font-weight: 800;
+            color: var(--primary-blue);
+            margin-bottom: 8px;
+        }
+
+        .stat-label {
+            color: var(--gray-500);
+            font-size: 14px;
+            font-weight: 500;
+        }
+
+        /* Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 2000;
+        }
+
+        .modal-content {
+            background: var(--white);
+            margin: 5% auto;
+            padding: 32px;
+            border-radius: var(--border-radius);
+            max-width: 500px;
+            position: relative;
+            box-shadow: var(--shadow-xl);
+        }
+
+        .modal-header {
+            margin-bottom: 24px;
+        }
+
+        .modal-title {
+            font-size: 24px;
+            font-weight: 600;
+            color: var(--gray-800);
+        }
+
+        .close-btn {
+            position: absolute;
+            top: 16px;
+            right: 16px;
+            background: none;
+            border: none;
+            font-size: 24px;
+            color: var(--gray-400);
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .close-btn:hover {
+            color: var(--gray-600);
+        }
+
+        /* Floating Action Button */
+        .fab {
+            position: fixed;
+            bottom: 24px;
+            right: 24px;
+            width: 56px;
+            height: 56px;
+            background: var(--primary-blue);
+            border-radius: 50%;
+            border: none;
+            color: white;
+            font-size: 24px;
+            cursor: pointer;
+            box-shadow: var(--shadow-lg);
+            transition: var(--transition);
+            z-index: 1000;
+        }
+
+        .fab:hover {
+            background: var(--primary-blue-dark);
+            transform: scale(1.1);
+            box-shadow: var(--shadow-xl);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .container {
+                padding: 0 16px;
+            }
+
+            .nav-menu {
+                display: none;
+            }
+
+            .hero-title {
+                font-size: 32px;
+            }
+
+            .hero-subtitle {
+                font-size: 16px;
+            }
+
+            .profiles-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .stats-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .modal-content {
+                margin: 10% 16px;
+                padding: 24px;
+            }
+
+            .fab {
+                bottom: 16px;
+                right: 16px;
+            }
+
+            .swap-skills {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+        }
+
+        /* Utility Classes */
+        .text-center { text-align: center; }
+        .text-sm { font-size: 14px; }
+        .text-xs { font-size: 12px; }
+        .font-medium { font-weight: 500; }
+        .font-semibold { font-weight: 600; }
+        .mb-2 { margin-bottom: 8px; }
+        .mb-4 { margin-bottom: 16px; }
+        .mt-4 { margin-top: 16px; }
+        .flex { display: flex; }
+        .items-center { align-items: center; }
+        .justify-between { justify-content: space-between; }
+        .gap-2 { gap: 8px; }
+        .gap-4 { gap: 16px; }
+        .w-full { width: 100%; }
+        .hidden { display: none; }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <nav class="nav">
+                <a href="#" class="logo">
+                    <div class="logo-icon">💼</div>
+                    SkillHub
+                </a>
+                <ul class="nav-menu">
+                    <li><a href="#" class="nav-link active" onclick="showPage('home')">Home</a></li>
+                    <li><a href="#" class="nav-link" onclick="showPage('browse')">Browse</a></li>
+                    <li><a href="#" class="nav-link" onclick="showPage('profile')">Profile</a></li>
+                    <li><a href="#" class="nav-link" onclick="showPage('swaps')">My Swaps</a></li>
+                    <li><a href="#" class="nav-link" id="adminNavLink" onclick="showPage('admin')" style="display: none;">Admin</a></li>
+                </ul>
+                <div class="user-menu">
+                    <div class="user-avatar" id="userAvatar">J</div>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="main container">
+        <!-- Home Page -->
+        <div id="home" class="page active">
+            <div class="hero">
+                <h1 class="hero-title">SkillHub</h1>
+                <p class="hero-subtitle">Connect with professionals, exchange skills, and grow your career through collaborative learning.</p>
+                <a href="#" class="hero-cta" onclick="showPage('profile')">Get Started</a>
+            </div>
+
+            <div class="profiles-grid" id="featuredProfiles">
+                <!-- Featured profiles will be rendered here -->
+            </div>
+        </div>
+
+        <!-- Profile Page -->
+        <div id="profile" class="page">
+            <div class="card">
+                <div class="card-header">
+                    <h2 class="card-title">My Profile</h2>
+                    <p class="card-subtitle">Manage your professional information and skills</p>
+                </div>
+                <div class="card-body">
+                    <form id="profileForm">
+                        <div class="form-group">
+                            <label for="profileName" class="form-label">Full Name</label>
+                            <input type="text" id="profileName" class="form-input" placeholder="Enter your full name" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="profileLocation" class="form-label">Location</label>
+                            <input type="text" id="profileLocation" class="form-input" placeholder="City, Country">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="profileAvailability" class="form-label">Availability</label>
+                            <select id="profileAvailability" class="form-input form-select" required>
+                                <option value="">Select your availability</option>
+                                <option value="weekdays">Weekdays</option>
+                                <option value="weekends">Weekends</option>
+                                <option value="evenings">Evenings</option>
+                                <option value="flexible">Flexible</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label">Profile Visibility</label>
+                            <div class="toggle-container">
+                                <span class="toggle-label">Private</span>
+                                <div class="toggle-switch" id="visibilityToggle">
+                                    <div class="toggle-slider"></div>
+                                </div>
+                                <span class="toggle-label">Public</span>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="skillOfferedInput" class="form-label">Skills I Offer</label>
+                            <input type="text" id="skillOfferedInput" class="form-input" placeholder="Type a skill and press Enter">
+                            <div class="skills-container" id="offeredSkillsContainer"></div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="skillWantedInput" class="form-label">Skills I Want to Learn</label>
+                            <input type="text" id="skillWantedInput" class="form-input" placeholder="Type a skill and press Enter">
+                            <div class="skills-container" id="wantedSkillsContainer"></div>
+                        </div>
+
+                        <button type="submit" class="btn btn-primary">Save Profile</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <!-- Browse Page -->
+        <div id="browse" class="page">
+            <div class="card">
+                <div class="card-header">
+                    <h2 class="card-title">Browse Professionals</h2>
+                    <p class="card-subtitle">Find skilled professionals and request skill exchanges</p>
+                </div>
+                <div class="card-body">
+                    <div class="search-container">
+                        <input type="text" class="search-input" id="searchInput" placeholder="Search for skills, people, or expertise...">
+                        <div class="search-icon">🔍</div>
+                    </div>
+                    <div class="profiles-grid" id="profilesGrid">
+                        <!-- User profiles will be rendered here -->
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- My Swaps Page -->
+        <div id="swaps" class="page">
+            <div class="card">
+                <div class="card-header">
+                    <h2 class="card-title">My Swap Requests</h2>
+                    <p class="card-subtitle">Manage your ongoing and completed skill exchanges</p>
+                </div>
+                <div class="card-body">
+                    <div id="swapRequestsContainer">
+                        <!-- Swap requests will be rendered here -->
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Admin Page -->
+        <div id="admin" class="page">
+            <div class="card">
+                <div class="card-header">
+                    <h2 class="card-title">Admin Dashboard</h2>
+                    <p class="card-subtitle">Platform management and analytics</p>
+                </div>
+                <div class="card-body">
+                    <div class="stats-grid">
+                        <div class="stat-card">
+                            <div class="stat-icon">👥</div>
+                            <div class="stat-number" id="totalUsersCount">0</div>
+                            <div class="stat-label">Total Users</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-icon">🔄</div>
+                            <div class="stat-number" id="activeSwapsCount">0</div>
+                            <div class="stat-label">Active Swaps</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-icon">✅</div>
+                            <div class="stat-number" id="completedSwapsCount">0</div>
+                            <div class="stat-label">Completed</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-icon">⚠️</div>
+                            <div class="stat-number" id="reportedUsersCount">0</div>
+                            <div class="stat-label">Reports</div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="adminMessageInput" class="form-label">Platform Announcement</label>
+                        <textarea id="adminMessageInput" class="form-input form-textarea" placeholder="Type your announcement here..."></textarea>
+                        <button class="btn btn-primary" onclick="sendAdminMessage()">Send Announcement</button>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">Platform Management</label>
+                        <div class="flex gap-2">
+                            <button class="btn btn-secondary" onclick="downloadReports()">Download Reports</button>
+                            <button class="btn btn-secondary" onclick="manageUsers()">Manage Users</button>
+                            <button class="btn btn-secondary" onclick="moderateContent()">Moderate Content</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Floating Action Button -->
+    <button class="fab" onclick="showCreateSwapModal()" title="Create New Swap Request">+</button>
+
+    <!-- Create Swap Modal -->
+    <div id="swapModal" class="modal">
+        <div class="modal-content">
+            <button class="close-btn" onclick="closeModal()">&times;</button>
+            <div class="modal-header">
+                <h3 class="modal-title">Create Swap Request</h3>
+            </div>
+            <form id="swapRequestForm">
+                <div class="form-group">
+                    <label for="swapSkillOffered" class="form-label">Skill I'm Offering</label>
+                    <select id="swapSkillOffered" class="form-input form-select" required>
+                        <option value="">Select a skill you offer</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="swapSkillWanted" class="form-label">Skill I Want to Learn</label>
+                    <input type="text" id="swapSkillWanted" class="form-input" placeholder="Enter the skill you want to learn" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="swapTargetUser" class="form-label">Request From</label>
+                    <select id="swapTargetUser" class="form-input form-select" required>
+                        <option value="">Select a user</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="swapMessage" class="form-label">Personal Message</label>
+                    <textarea id="swapMessage" class="form-input form-textarea" placeholder="Add a personal message to introduce yourself..."></textarea>
+                </div>
+
+                <button type="submit" class="btn btn-primary w-full">Send Swap Request</button>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        // Application State
+        let currentUser = {
+            id: 1,
+            name: 'John Doe',
+            location: 'Mumbai, Maharashtra, India',
+            availability: 'weekends',
+            isPublic: true,
+            skillsOffered: ['JavaScript', 'React', 'Node.js', 'UI/UX Design'],
+            skillsWanted: ['Python', 'Machine Learning', 'Data Science', 'DevOps'],
+            isAdmin: true,
+            rating: 4.8,
+            completedSwaps: 12
+        };
+
+        let users = [
+            {
+                id: 1,
+                name: 'John Doe',
+                location: 'Mumbai, Maharashtra, India',
+                availability: 'weekends',
+                isPublic: true,
+                skillsOffered: ['JavaScript', 'React', 'Node.js', 'UI/UX Design'],
+                skillsWanted: ['Python', 'Machine Learning', 'Data Science', 'DevOps'],
+                isAdmin: true,
+                rating: 4.8,
+                completedSwaps: 12
+            },
+            {
+                id: 2,
+                name: 'Sarah Chen',
+                location: 'Delhi, India',
+                availability: 'evenings',
+                isPublic: true,
+                skillsOffered: ['Python', 'Data Science', 'Machine Learning', 'Statistics'],
+                skillsWanted: ['JavaScript', 'Web Development', 'React', 'Frontend'],
+                isAdmin: false,
+                rating: 4.9,
+                completedSwaps: 18
+            },
+            {
+                id: 3,
+                name: 'Mike Johnson',
+                location: 'Bangalore, India',
+                availability: 'flexible',
+                isPublic: true,
+                skillsOffered: ['Photoshop', 'UI/UX Design', 'Figma', 'Branding'],
+                skillsWanted: ['Marketing', 'SEO', 'Content Writing', 'Social Media'],
+                isAdmin: false,
+                rating: 4.7,
+                completedSwaps: 8
+            },
+            {
+                id: 4,
+                name: 'Priya Sharma',
+                location: 'Chennai, India',
+                availability: 'weekdays',
+                isPublic: true,
+                skillsOffered: ['Digital Marketing', 'SEO', 'Content Strategy', 'Analytics'],
+                skillsWanted: ['Graphic Design', 'Video Editing', 'Photography'],
+                isAdmin: false,
+                rating: 4.6,
+                completedSwaps: 15
+            },
+            {
+                id: 5,
+                name: 'Alex Rodriguez',
+                location: 'Pune, India',
+                availability: 'evenings',
+                isPublic: true,
+                skillsOffered: ['DevOps', 'AWS', 'Docker', 'Kubernetes'],
+                skillsWanted: ['Mobile Development', 'Flutter', 'iOS Development'],
+                isAdmin: false,
+                rating: 4.8,
+                completedSwaps: 10
+            }
+        ];
+
+        let swapRequests = [
+            {
+                id: 1,
+                fromUser: 2,
+                toUser: 1,
+                skillOffered: 'Python',
+                skillWanted: 'JavaScript',
+                message: 'Hi John! I\'d love to learn JavaScript from you. I have extensive Python experience and can help you with data science concepts.',
+                status: 'pending',
+                createdAt: new Date('2024-07-10'),
+                rating: null
+            },
+            {
+                id: 2,
+                fromUser: 3,
+                toUser: 1,
+                skillOffered: 'UI/UX Design',
+                skillWanted: 'React',
+                message: 'Hey! I saw your React skills and would love to learn. I can help you with advanced UI/UX design principles in return.',
+                status: 'accepted',
+                createdAt: new Date('2024-07-08'),
+                rating: 5
+            }
+        ];
+
+        let adminStats = {
+            totalUsers: 5,
+            activeSwaps: 3,
+            completedSwaps: 7,
+            reportedUsers: 0
+        };
+
+        // Initialize Application
+        function init() {
+            loadUserProfile();
+            updateAdminVisibility();
+            updateAdminStats();
+            renderFeaturedProfiles();
+            renderAllProfiles();
+            renderSwapRequests();
+            setupEventListeners();
+            loadUserSkillsInModal();
+        }
+
+        // Event Listeners
+        function setupEventListeners() {
+            document.getElementById('profileForm').addEventListener('submit', handleProfileSubmit);
+            
+            document.getElementById('skillOfferedInput').addEventListener('keypress', (e) => {
+                if (e.key === 'Enter') {
+                    e.preventDefault();
+                    addSkill('offered');
+                }
+            });
+            
+            document.getElementById('skillWantedInput').addEventListener('keypress', (e) => {
+                if (e.key === 'Enter') {
+                    e.preventDefault();
+                    addSkill('wanted');
+                }
+            });
+
+            document.getElementById('visibilityToggle').addEventListener('click', toggleVisibility);
+            document.getElementById('searchInput').addEventListener('input', handleSearch);
+            document.getElementById('swapRequestForm').addEventListener('submit', handleSwapSubmit);
+
+            document.getElementById('swapModal').addEventListener('click', (e) => {
+                if (e.target.classList.contains('modal')) {
+                    closeModal();
+                }
+            });
+        }
+
+        // Page Navigation
+        function showPage(pageId) {
+            document.querySelectorAll('.nav-link').forEach(link => {
+                link.classList.remove('active');
+            });
+            
+            event?.target?.classList.add('active');
+
+            document.querySelectorAll('.page').forEach(page => {
+                page.classList.remove('active');
+            });
+            
+            document.getElementById(pageId).classList.add('active');
+
+            switch(pageId) {
+                case 'browse':
+                    renderAllProfiles();
+                    break;
+                case 'swaps':
+                    renderSwapRequests();
+                    break;
+                case 'admin':
+                    updateAdminStats();
+                    break;
+                case 'home':
+                    renderFeaturedProfiles();
+                    break;
+            }
+        }
+
+        // Profile Management
+        function loadUserProfile() {
+            document.getElementById('profileName').value = currentUser.name;
+            document.getElementById('profileLocation').value = currentUser.location;
+            document.getElementById('profileAvailability').value = currentUser.availability;
+            
+            const toggle = document.getElementById('visibilityToggle');
+            if (currentUser.isPublic) {
+                toggle.classList.add('active');
+            }
+
+            updateUserAvatar();
+            renderSkills();
+        }
+
+        function updateUserAvatar() {
+            const avatar = document.getElementById('userAvatar');
+            avatar.textContent = currentUser.name.charAt(0).toUpperCase();
+        }
+
+        function handleProfileSubmit(e) {
+            e.preventDefault();
+            
+            currentUser.name = document.getElementById('profileName').value;
+            currentUser.location = document.getElementById('profileLocation').value;
+            currentUser.availability = document.getElementById('profileAvailability').value;
+            
+            updateUserAvatar();
+            showNotification('Profile updated successfully!', 'success');
+            
+            const userIndex = users.findIndex(u => u.id === currentUser.id);
+            if (userIndex !== -1) {
+                users[userIndex] = { ...currentUser };
+            }
+        }
+
+        function addSkill(type) {
+            const inputId = type === 'offered' ? 'skillOfferedInput' : 'skillWantedInput';
+            const input = document.getElementById(inputId);
+            const skillText = input.value.trim();
+            
+            if (!skillText) return;
+            
+            const skillsArray = type === 'offered' ? currentUser.skillsOffered : currentUser.skillsWanted;
+            
+            if (!skillsArray.includes(skillText)) {
+                skillsArray.push(skillText);
+                input.value = '';
+                renderSkills();
+                loadUserSkillsInModal();
+            }
+        }
+
+        function removeSkill(type, skill) {
+            const skillsArray = type === 'offered' ? currentUser.skillsOffered : currentUser.skillsWanted;
+            const index = skillsArray.indexOf(skill);
+            
+            if (index > -1) {
+                skillsArray.splice(index, 1);
+                renderSkills();
+                loadUserSkillsInModal();
+            }
+        }
+
+        function renderSkills() {
+            renderSkillContainer('offered', currentUser.skillsOffered, 'offeredSkillsContainer');
+            renderSkillContainer('wanted', currentUser.skillsWanted, 'wantedSkillsContainer');
+        }
+
+        function renderSkillContainer(type, skills, containerId) {
+            const container = document.getElementById(containerId);
+            container.innerHTML = '';
+            
+            skills.forEach(skill => {
+                const skillTag = document.createElement('div');
+                skillTag.className = 'skill-tag';
+                skillTag.innerHTML = `
+                    <span>${skill}</span>
+                    <span class="skill-remove" onclick="removeSkill('${type}', '${skill}')">&times;</span>
+                `;
+                container.appendChild(skillTag);
+            });
+        }
+
+        function toggleVisibility() {
+            const toggle = document.getElementById('visibilityToggle');
+            toggle.classList.toggle('active');
+            currentUser.isPublic = toggle.classList.contains('active');
+        }
+
+        // Profile Rendering
+        function renderFeaturedProfiles() {
+            const container = document.getElementById('featuredProfiles');
+            const featuredUsers = users.filter(user => user.id !== currentUser.id).slice(0, 3);
+            
+            container.innerHTML = featuredUsers.map(user => createProfileCard(user)).join('');
+        }
+
+        function renderAllProfiles() {
+            const container = document.getElementById('profilesGrid');
+            const publicUsers = users.filter(user => user.isPublic && user.id !== currentUser.id);
+            
+            container.innerHTML = publicUsers.map(user => createProfileCard(user)).join('');
+        }
+
+        function createProfileCard(user) {
+            const stars = '★'.repeat(Math.floor(user.rating)) + '☆'.repeat(5 - Math.floor(user.rating));
+            
+            return `
+                <div class="profile-card" onclick="viewProfile(${user.id})">
+                    <div class="profile-header">
+                        <div class="profile-avatar">${user.name.charAt(0)}</div>
+                        <div class="profile-info">
+                            <h3>${user.name}</h3>
+                            <p>📍 ${user.location}</p>
+                            <div class="profile-rating">
+                                <span class="stars">${stars}</span>
+                                <span class="rating-text">${user.rating} (${user.completedSwaps} swaps)</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="skills-section">
+                        <h4 class="skills-title">Offers</h4>
+                        <div class="skills-list">
+                            ${user.skillsOffered.slice(0, 3).map(skill => `<span class="skill-item">${skill}</span>`).join('')}
+                            ${user.skillsOffered.length > 3 ? `<span class="skill-item">+${user.skillsOffered.length - 3} more</span>` : ''}
+                        </div>
+                    </div>
+                    
+                    <div class="skills-section">
+                        <h4 class="skills-title">Wants</h4>
+                        <div class="skills-list">
+                            ${user.skillsWanted.slice(0, 3).map(skill => `<span class="skill-item">${skill}</span>`).join('')}
+                            ${user.skillsWanted.length > 3 ? `<span class="skill-item">+${user.skillsWanted.length - 3} more</span>` : ''}
+                        </div>
+                    </div>
+                    
+                    <div class="flex gap-2 mt-4">
+                        <button class="btn btn-primary btn-sm" onclick="event.stopPropagation(); initiateSwap(${user.id})">
+                            Request Swap
+                        </button>
+                        <button class="btn btn-outline btn-sm" onclick="event.stopPropagation(); viewProfile(${user.id})">
+                            View Profile
+                        </button>
+                    </div>
+                </div>
+            `;
+        }
+
+        // Search Functionality
+        function handleSearch(e) {
+            const searchTerm = e.target.value.toLowerCase();
+            const allUsers = users.filter(user => user.isPublic && user.id !== currentUser.id);
+            
+            const filteredUsers = allUsers.filter(user => {
+                const nameMatch = user.name.toLowerCase().includes(searchTerm);
+                const locationMatch = user.location.toLowerCase().includes(searchTerm);
+                const skillsMatch = [...user.skillsOffered, ...user.skillsWanted]
+                    .some(skill => skill.toLowerCase().includes(searchTerm));
+                
+                return nameMatch || locationMatch || skillsMatch;
+            });
+            
+            const container = document.getElementById('profilesGrid');
+            container.innerHTML = filteredUsers.map(user => createProfileCard(user)).join('');
+        }
+
+        // Swap Request Management
+        function loadUserSkillsInModal() {
+            const select = document.getElementById('swapSkillOffered');
+            select.innerHTML = '<option value="">Select a skill you offer</option>';
+            
+            currentUser.skillsOffered.forEach(skill => {
+                const option = document.createElement('option');
+                option.value = skill;
+                option.textContent = skill;
+                select.appendChild(option);
+            });
+
+            const userSelect = document.getElementById('swapTargetUser');
+            userSelect.innerHTML = '<option value="">Select a user</option>';
+            
+            users.filter(user => user.isPublic && user.id !== currentUser.id).forEach(user => {
+                const option = document.createElement('option');
+                option.value = user.id;
+                option.textContent = user.name;
+                userSelect.appendChild(option);
+            });
+        }
+
+        function showCreateSwapModal() {
+            loadUserSkillsInModal();
+            document.getElementById('swapModal').style.display = 'block';
+        }
+
+        function closeModal() {
+            document.getElementById('swapModal').style.display = 'none';
+            document.getElementById('swapRequestForm').reset();
+        }
+
+        function handleSwapSubmit(e) {
+            e.preventDefault();
+            
+            const skillOffered = document.getElementById('swapSkillOffered').value;
+            const skillWanted = document.getElementById('swapSkillWanted').value;
+            const targetUserId = parseInt(document.getElementById('swapTargetUser').value);
+            const message = document.getElementById('swapMessage').value;
+            
+            if (!skillOffered || !skillWanted || !targetUserId) {
+                showNotification('Please fill in all required fields', 'error');
+                return;
+            }
+            
+            const newSwapRequest = {
+                id: swapRequests.length + 1,
+                fromUser: currentUser.id,
+                toUser: targetUserId,
+                skillOffered: skillOffered,
+                skillWanted: skillWanted,
+                message: message,
+                status: 'pending',
+                createdAt: new Date(),
+                rating: null
+            };
+            
+            swapRequests.push(newSwapRequest);
+            closeModal();
+            showNotification('Swap request sent successfully!', 'success');
+            
+            if (document.getElementById('swaps').classList.contains('active')) {
+                renderSwapRequests();
+            }
+        }
+
+        function initiateSwap(userId) {
+            const targetUser = users.find(u => u.id === userId);
+            if (!targetUser) return;
+            
+            showCreateSwapModal();
+            document.getElementById('swapTargetUser').value = userId;
+            
+            const skillWantedInput = document.getElementById('swapSkillWanted');
+            if (targetUser.skillsWanted.length > 0) {
+                skillWantedInput.placeholder = `Suggested: ${targetUser.skillsWanted.join(', ')}`;
+            }
+        }
+
+        function renderSwapRequests() {
+            const container = document.getElementById('swapRequestsContainer');
+            const userSwaps = swapRequests.filter(swap => 
+                swap.fromUser === currentUser.id || swap.toUser === currentUser.id
+            );
+            
+            if (userSwaps.length === 0) {
+                container.innerHTML = `
+                    <div class="text-center">
+                        <p class="text-sm">No swap requests yet.</p>
+                        <button class="btn btn-primary mt-4" onclick="showCreateSwapModal()">
+                            Create Your First Swap
+                        </button>
+                    </div>
+                `;
+                return;
+            }
+            
+            container.innerHTML = userSwaps.map(swap => createSwapRequestCard(swap)).join('');
+        }
+
+        function createSwapRequestCard(swap) {
+            const isFromCurrentUser = swap.fromUser === currentUser.id;
+            const otherUserId = isFromCurrentUser ? swap.toUser : swap.fromUser;
+            const otherUser = users.find(u => u.id === otherUserId);
+            const direction = isFromCurrentUser ? 'Sent to' : 'Received from';
+            
+            return `
+                <div class="swap-request ${swap.status}">
+                    <div class="swap-header">
+                        <div class="swap-user">${direction} ${otherUser.name}</div>
+                        <div class="swap-status ${swap.status}">${swap.status}</div>
+                    </div>
+                    
+                    <div class="swap-skills">
+                        <span class="swap-skill">${isFromCurrentUser ? swap.skillOffered : swap.skillWanted}</span>
+                        <span class="swap-arrow">⇄</span>
+                        <span class="swap-skill">${isFromCurrentUser ? swap.skillWanted : swap.skillOffered}</span>
+                    </div>
+                    
+                    ${swap.message ? `<div class="swap-message">"${swap.message}"</div>` : ''}
+                    
+                    <div class="text-xs mb-4" style="color: var(--gray-500);">
+                        ${formatDate(swap.createdAt)}
+                    </div>
+                    
+                    <div class="flex gap-2">
+                        ${swap.status === 'pending' && !isFromCurrentUser ? `
+                            <button class="btn btn-success btn-sm" onclick="acceptSwap(${swap.id})">
+                                Accept
+                            </button>
+                            <button class="btn btn-danger btn-sm" onclick="rejectSwap(${swap.id})">
+                                Reject
+                            </button>
+                        ` : ''}
+                        
+                        ${swap.status === 'pending' && isFromCurrentUser ? `
+                            <button class="btn btn-secondary btn-sm" onclick="cancelSwap(${swap.id})">
+                                Cancel
+                            </button>
+                        ` : ''}
+                        
+                        ${swap.status === 'accepted' && !swap.rating ? `
+                            <button class="btn btn-primary btn-sm" onclick="rateSwap(${swap.id})">
+                                Rate Experience
+                            </button>
+                        ` : ''}
+                    </div>
+                </div>
+            `;
+        }
+
+        function acceptSwap(swapId) {
+            const swap = swapRequests.find(s => s.id === swapId);
+            if (swap) {
+                swap.status = 'accepted';
+                renderSwapRequests();
+                updateAdminStats();
+                showNotification('Swap request accepted!', 'success');
+            }
+        }
+
+        function rejectSwap(swapId) {
+            const swap = swapRequests.find(s => s.id === swapId);
+            if (swap) {
+                swap.status = 'rejected';
+                renderSwapRequests();
+                showNotification('Swap request rejected.', 'warning');
+            }
+        }
+
+        function cancelSwap(swapId) {
+            const index = swapRequests.findIndex(s => s.id === swapId);
+            if (index > -1) {
+                swapRequests.splice(index, 1);
+                renderSwapRequests();
+                showNotification('Swap request cancelled.', 'warning');
+            }
+        }
+
+        function rateSwap(swapId) {
+            const rating = prompt('Rate your experience (1-5 stars):');
+            const numRating = parseInt(rating);
+            
+            if (numRating >= 1 && numRating <= 5) {
+                const swap = swapRequests.find(s => s.id === swapId);
+                if (swap) {
+                    swap.rating = numRating;
+                    swap.status = 'completed';
+                    adminStats.completedSwaps++;
+                    adminStats.activeSwaps--;
+                    renderSwapRequests();
+                    updateAdminStats();
+                    showNotification(`Thanks for rating! ${numRating} stars given.`, 'success');
+                }
+            }
+        }
+
+        // Admin Functions
+        function updateAdminVisibility() {
+            const adminLink = document.getElementById('adminNavLink');
+            if (currentUser.isAdmin) {
+                adminLink.style.display = 'block';
+            }
+        }
+
+        function updateAdminStats() {
+            if (!currentUser.isAdmin) return;
+            
+            document.getElementById('totalUsersCount').textContent = users.length;
+            document.getElementById('activeSwapsCount').textContent = swapRequests.filter(s => s.status === 'accepted').length;
+            document.getElementById('completedSwapsCount').textContent = swapRequests.filter(s => s.status === 'completed').length;
+            document.getElementById('reportedUsersCount').textContent = adminStats.reportedUsers;
+        }
+
+        function sendAdminMessage() {
+            const message = document.getElementById('adminMessageInput').value;
+            if (!message.trim()) {
+                showNotification('Please enter a message', 'error');
+                return;
+            }
+            
+            showNotification('Platform-wide announcement sent!', 'success');
+            document.getElementById('adminMessageInput').value = '';
+        }
+
+        function downloadReports() {
+            const reportData = {
+                users: users.length,
+                activeSwaps: swapRequests.filter(s => s.status === 'accepted').length,
+                completedSwaps: swapRequests.filter(s => s.status === 'completed').length,
+                pendingSwaps: swapRequests.filter(s => s.status === 'pending').length,
+                topSkills: getTopSkills(),
+                generatedAt: new Date().toISOString()
+            };
+            
+            const dataStr = JSON.stringify(reportData, null, 2);
+            const dataBlob = new Blob([dataStr], {type: 'application/json'});
+            const url = URL.createObjectURL(dataBlob);
+            
+            const link = document.createElement('a');
+            link.href = url;
+            link.download = `skillhub-report-${new Date().toISOString().split('T')[0]}.json`;
+            link.click();
+            
+            showNotification('Report downloaded successfully!', 'success');
+        }
+
+        function manageUsers() {
+            showNotification('User management panel opened', 'success');
+        }
+
+        function moderateContent() {
+            showNotification('Content moderation panel opened', 'success');
+        }
+
+        // Utility Functions
+        function getTopSkills() {
+            const skillCount = {};
+            users.forEach(user => {
+                [...user.skillsOffered, ...user.skillsWanted].forEach(skill => {
+                    skillCount[skill] = (skillCount[skill] || 0) + 1;
+                });
+            });
+            
+            return Object.entries(skillCount)
+                .sort(([,a], [,b]) => b - a)
+                .slice(0, 10)
+                .map(([skill, count]) => ({ skill, count }));
+        }
+
+        function formatDate(date) {
+            return new Date(date).toLocaleDateString('en-US', {
+                year: 'numeric',
+                month: 'short',
+                day: 'numeric'
+            });
+        }
+
+        function viewProfile(userId) {
+            const user = users.find(u => u.id === userId);
+            if (user) {
+                showNotification(`Viewing ${user.name}'s profile`, 'success');
+            }
+        }
+
+        function showNotification(message, type = 'success') {
+            // Simple notification system
+            const notification = document.createElement('div');
+            notification.style.cssText = `
+                position: fixed;
+                top: 100px;
+                right: 24px;
+                background: ${type === 'success' ? 'var(--success-green)' : type === 'error' ? 'var(--danger-red)' : 'var(--warning-orange)'};
+                color: white;
+                padding: 16px 24px;
+                border-radius: var(--border-radius);
+                box-shadow: var(--shadow-lg);
+                z-index: 3000;
+                font-weight: 500;
+            `;
+            notification.textContent = message;
+            
+            document.body.appendChild(notification);
+            
+            setTimeout(() => {
+                document.body.removeChild(notification);
+            }, 3000);
+        }
+
+        // Initialize the application
+        document.addEventListener('DOMContentLoaded', init);
+
+        // Keyboard shortcuts
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') {
+                closeModal();
+            }
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SkillHub - Professional Skill Exchange Platform</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <nav class="nav">
+                <a href="#" class="logo" onclick="showPage('home', event); return false;">
+                    <div class="logo-icon">💼</div>
+                    SkillHub
+                </a>
+                <ul class="nav-menu">
+                    <li><button type="button" class="nav-link active" onclick="showPage('home', event)">Home</button></li>
+                    <li class="auth-required"><button type="button" class="nav-link" onclick="showPage('browse', event)">Browse</button></li>
+                    <li class="auth-required"><button type="button" class="nav-link" onclick="showPage('profile', event)">Profile</button></li>
+                    <li class="auth-required"><button type="button" class="nav-link" onclick="showPage('swaps', event)">My Swaps</button></li>
+                    <li class="auth-required"><button type="button" class="nav-link" id="adminNavLink" onclick="showPage('admin', event)" style="display: none;">Admin</button></li>
+                </ul>
+                <div class="user-menu">
+                    <div class="auth-buttons" id="authButtons">
+                        <button class="btn btn-outline btn-sm" onclick="showAuthModal('login')">Login</button>
+                        <button class="btn btn-primary btn-sm" onclick="showAuthModal('signup')">Sign Up</button>
+                    </div>
+                    <div class="user-dropdown" id="userDropdown" style="display: none;">
+                        <div class="user-avatar" id="userAvatar">J</div>
+                        <div class="dropdown-menu" id="dropdownMenu">
+                            <a href="#" onclick="showPage('profile', event); return false;">Profile</a>
+                            <a href="#" onclick="logout(); return false;">Logout</a>
+                        </div>
+                    </div>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="main container">
+        <!-- Home Page -->
+        <div id="home" class="page active">
+            <div class="hero">
+                <h1 class="hero-title">SkillHub</h1>
+                <p class="hero-subtitle">Connect with professionals, exchange skills, and grow your career through collaborative learning.</p>
+                <a href="#" class="hero-cta" onclick="showPage('profile', event); return false;">Get Started</a>
+            </div>
+
+            <div class="profiles-grid" id="featuredProfiles">
+                <!-- Featured profiles will be rendered here -->
+            </div>
+            
+    
+        </div>
+
+        <!-- Profile Page -->
+        <div id="profile" class="page">
+            <div class="card">
+                <div class="card-header">
+                    <h2 class="card-title">My Profile</h2>
+                    <p class="card-subtitle">Manage your professional information and skills</p>
+                </div>
+                <div class="card-body">
+                    <form id="profileForm">
+                        <div class="form-group">
+                            <label for="profileName" class="form-label">Full Name</label>
+                            <input type="text" id="profileName" class="form-input" placeholder="Enter your full name" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="profileLocation" class="form-label">Location</label>
+                            <input type="text" id="profileLocation" class="form-input" placeholder="City, Country">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="profileAvailability" class="form-label">Availability</label>
+                            <select id="profileAvailability" class="form-input form-select" required>
+                                <option value="">Select your availability</option>
+                                <option value="weekdays">Weekdays</option>
+                                <option value="weekends">Weekends</option>
+                                <option value="evenings">Evenings</option>
+                                <option value="flexible">Flexible</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label">Profile Visibility</label>
+                            <div class="toggle-container">
+                                <span class="toggle-label">Private</span>
+                                <div class="toggle-switch" id="visibilityToggle">
+                                    <div class="toggle-slider"></div>
+                                </div>
+                                <span class="toggle-label">Public</span>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="skillOfferedInput" class="form-label">Skills I Offer</label>
+                            <input type="text" id="skillOfferedInput" class="form-input" placeholder="Type a skill and press Enter">
+                            <div class="skills-container" id="offeredSkillsContainer"></div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="skillWantedInput" class="form-label">Skills I Want to Learn</label>
+                            <input type="text" id="skillWantedInput" class="form-input" placeholder="Type a skill and press Enter">
+                            <div class="skills-container" id="wantedSkillsContainer"></div>
+                        </div>
+
+                        <button type="submit" class="btn btn-primary">Save Profile</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <!-- Browse Page -->
+        <div id="browse" class="page">
+            <div class="card">
+                <div class="card-header">
+                    <h2 class="card-title">Browse Professionals</h2>
+                    <p class="card-subtitle">Find skilled professionals and request skill exchanges</p>
+                </div>
+                <div class="card-body">
+                    <div class="search-container">
+                        <input type="text" class="search-input" id="searchInput" placeholder="Search for skills, people, or expertise...">
+                        <div class="search-icon">🔍</div>
+                    </div>
+                    <div class="profiles-grid" id="profilesGrid">
+                        <!-- User profiles will be rendered here -->
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- My Swaps Page -->
+        <div id="swaps" class="page">
+            <div class="card">
+                <div class="card-header">
+                    <h2 class="card-title">My Swap Requests</h2>
+                    <p class="card-subtitle">Manage your ongoing and completed skill exchanges</p>
+                </div>
+                <div class="card-body">
+                    <div id="swapRequestsContainer">
+                        <!-- Swap requests will be rendered here -->
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Admin Page -->
+        <div id="admin" class="page">
+            <div class="card">
+                <div class="card-header">
+                    <h2 class="card-title">Admin Dashboard</h2>
+                    <p class="card-subtitle">Platform management and analytics</p>
+                </div>
+                <div class="card-body">
+                    <div class="stats-grid">
+                        <div class="stat-card">
+                            <div class="stat-icon">👥</div>
+                            <div class="stat-number" id="totalUsersCount">0</div>
+                            <div class="stat-label">Total Users</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-icon">🔄</div>
+                            <div class="stat-number" id="activeSwapsCount">0</div>
+                            <div class="stat-label">Active Swaps</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-icon">✅</div>
+                            <div class="stat-number" id="completedSwapsCount">0</div>
+                            <div class="stat-label">Completed</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-icon">⚠️</div>
+                            <div class="stat-number" id="reportedUsersCount">0</div>
+                            <div class="stat-label">Reports</div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="adminMessageInput" class="form-label">Platform Announcement</label>
+                        <textarea id="adminMessageInput" class="form-input form-textarea" placeholder="Type your announcement here..."></textarea>
+                        <button class="btn btn-primary" onclick="sendAdminMessage()">Send Announcement</button>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">Platform Management</label>
+                        <div class="flex gap-2">
+                            <button class="btn btn-secondary" onclick="downloadReports()">Download Reports</button>
+                            <button class="btn btn-secondary" onclick="manageUsers()">Manage Users</button>
+                            <button class="btn btn-secondary" onclick="moderateContent()">Moderate Content</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Floating Action Button -->
+    <button class="fab" onclick="showCreateSwapModal()" title="Create New Swap Request">+</button>
+
+    <!-- Create Swap Modal -->
+    <div id="swapModal" class="modal">
+        <div class="modal-content">
+            <button class="close-btn" onclick="closeModal()">&times;</button>
+            <div class="modal-header">
+                <h3 class="modal-title">Create Swap Request</h3>
+            </div>
+            <form id="swapRequestForm">
+                <div class="form-group">
+                    <label for="swapSkillOffered" class="form-label">Skill I'm Offering</label>
+                    <select id="swapSkillOffered" class="form-input form-select" required>
+                        <option value="">Select a skill you offer</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="swapSkillWanted" class="form-label">Skill I Want to Learn</label>
+                    <input type="text" id="swapSkillWanted" class="form-input" placeholder="Enter the skill you want to learn" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="swapTargetUser" class="form-label">Request From</label>
+                    <select id="swapTargetUser" class="form-input form-select" required>
+                        <option value="">Select a user</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="swapMessage" class="form-label">Personal Message</label>
+                    <textarea id="swapMessage" class="form-input form-textarea" placeholder="Add a personal message to introduce yourself..."></textarea>
+                </div>
+
+                <button type="submit" class="btn btn-primary w-full">Send Swap Request</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Authentication Modal -->
+    <div id="authModal" class="modal">
+        <div class="modal-content">
+            <button class="close-btn" onclick="closeAuthModal()">&times;</button>
+            
+            <!-- Login Form -->
+            <div id="loginForm" class="auth-form">
+                <div class="modal-header">
+                    <h3 class="modal-title">Welcome Back</h3>
+                    <p class="modal-subtitle">Sign in to your SkillHub account</p>
+                </div>
+                <form id="loginFormElement">
+                    <div class="form-group">
+                        <label for="loginEmail" class="form-label">Email</label>
+                        <input type="email" id="loginEmail" class="form-input" placeholder="Enter your email" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="loginPassword" class="form-label">Password</label>
+                        <input type="password" id="loginPassword" class="form-input" placeholder="Enter your password" required>
+                    </div>
+                    <button type="submit" class="btn btn-primary w-full" id="loginBtn">
+                        <span class="btn-text">Sign In</span>
+                        <span class="btn-loading" style="display: none;">Signing in...</span>
+                    </button>
+                </form>
+                <div class="auth-divider">
+                    <span>or</span>
+                </div>
+                <button class="btn btn-outline w-full" onclick="demoLogin()">
+                    Try Demo Account
+                </button>
+                <div class="auth-switch">
+                    <p>Don't have an account? <a href="#" onclick="switchAuthForm('signup'); return false;">Sign up</a></p>
+                </div>
+            </div>
+
+            <!-- Signup Form -->
+            <div id="signupForm" class="auth-form" style="display: none;">
+                <div class="modal-header">
+                    <h3 class="modal-title">Join SkillHub</h3>
+                    <p class="modal-subtitle">Create your account and start exchanging skills</p>
+                </div>
+                <form id="signupFormElement">
+                    <div class="form-group">
+                        <label for="signupName" class="form-label">Full Name</label>
+                        <input type="text" id="signupName" class="form-input" placeholder="Enter your full name" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="signupEmail" class="form-label">Email</label>
+                        <input type="email" id="signupEmail" class="form-input" placeholder="Enter your email" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="signupPassword" class="form-label">Password</label>
+                        <input type="password" id="signupPassword" class="form-input" placeholder="Create a password (min 6 characters)" required minlength="6">
+                    </div>
+                    <div class="form-group">
+                        <label for="signupLocation" class="form-label">Location (Optional)</label>
+                        <input type="text" id="signupLocation" class="form-input" placeholder="City, Country">
+                    </div>
+                    <button type="submit" class="btn btn-primary w-full" id="signupBtn">
+                        <span class="btn-text">Create Account</span>
+                        <span class="btn-loading" style="display: none;">Creating account...</span>
+                    </button>
+                </form>
+                <div class="auth-switch">
+                    <p>Already have an account? <a href="#" onclick="switchAuthForm('login'); return false;">Sign in</a></p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="database.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
